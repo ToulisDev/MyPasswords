@@ -1,36 +1,20 @@
 package com.familyprotection.djasdatabase;
 
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class listView extends AppCompatActivity {
 
-    public final static String ID_ITEM = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,20 +29,14 @@ public class listView extends AppCompatActivity {
 
         lv.setOnItemClickListener(onListClick);
 
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getData();
-                swipeRefreshLayout.setRefreshing(false);
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            getData();
+            swipeRefreshLayout.setRefreshing(false);
         });
 
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(listView.this, addItem.class);
-                startActivity(intent);
-            }
+        addBtn.setOnClickListener((view) -> {
+            Intent intent = new Intent(listView.this, addItem.class);
+            startActivity(intent);
         });
 
     }
@@ -69,9 +47,7 @@ public class listView extends AppCompatActivity {
         getData();
     }
 
-    private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    private final AdapterView.OnItemClickListener onListClick = (parent, view, position, id) -> {
             String tv_site = ((TextView) view.findViewById(R.id.tv_site)).getText().toString();
             String et_username = ((TextView) view.findViewById(R.id.tv_username)).getText().toString();
             String et_password = ((TextView) view.findViewById(R.id.tv_pass)).getText().toString();
@@ -81,14 +57,12 @@ public class listView extends AppCompatActivity {
             intent.putExtra("Password",et_password);
             startActivity(intent);
 
-        }
     };
 
     private void saveCreds(){
         SharedPreferences sharedPreferences = getSharedPreferences("creds",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        if(!sharedPreferences.contains("username") || !sharedPreferences.contains("password"));
-        {
+        if(!sharedPreferences.contains("username") || !sharedPreferences.contains("password")){
             editor.putString("username", ConnectionHelper.username);
             editor.putString("password", ConnectionHelper.password);
             editor.apply();
@@ -101,7 +75,7 @@ public class listView extends AppCompatActivity {
 
         ListView lstview = (ListView) findViewById(R.id.listview);
 
-        List<Map<String,String>> MyDataList = null;
+        List<Map<String,String>> MyDataList;
         ListItem MyData = new ListItem();
         MyDataList = MyData.getlist();
 

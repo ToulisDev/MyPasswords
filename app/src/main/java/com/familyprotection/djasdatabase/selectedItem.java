@@ -2,22 +2,15 @@ package com.familyprotection.djasdatabase;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
 
 public class selectedItem extends AppCompatActivity {
 
@@ -27,9 +20,9 @@ public class selectedItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selected_item);
 
-        String site = getIntent().getStringExtra("Site").toString();
-        String username = getIntent().getStringExtra("Username").toString();
-        String password = getIntent().getStringExtra("Password").toString();
+        String site = getIntent().getStringExtra("Site");
+        String username = getIntent().getStringExtra("Username");
+        String password = getIntent().getStringExtra("Password");
 
         TextView tvTitle = (TextView) findViewById(R.id.tv_site);
         EditText et_username = (EditText) findViewById(R.id.et_email);
@@ -43,29 +36,16 @@ public class selectedItem extends AppCompatActivity {
         et_username.setText(username);
         et_password.setText(password);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
+        backBtn.setOnClickListener(view -> finish());
+
+        editBtn.setOnClickListener((view) -> {
+            if(!et_username.getText().toString().equals("") && !et_password.getText().toString().equals(""))
+                editData(tvTitle.getText().toString(),et_username.getText().toString(),et_password.getText().toString());
+            else
+                Toast.makeText(selectedItem.this,"Username και Password δεν μπορούν να είναι κενά.",Toast.LENGTH_LONG).show();
         });
 
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!et_username.getText().toString().equals("") && !et_password.getText().toString().equals(""))
-                    editData(tvTitle.getText().toString(),et_username.getText().toString(),et_password.getText().toString());
-                else
-                    Toast.makeText(selectedItem.this,"Username και Password δεν μπορούν να είναι κενά.",Toast.LENGTH_LONG).show();
-            }
-        });
-
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteData(tvTitle.getText().toString());
-            }
-        });
+        deleteBtn.setOnClickListener((view) -> deleteData(tvTitle.getText().toString()));
 
 
     }
@@ -77,35 +57,29 @@ public class selectedItem extends AppCompatActivity {
         builder.setMessage("Διαγραφή των κωδικών του \""+site+"\"");
         builder.setIcon(android.R.drawable.ic_dialog_alert);
 
-        builder.setPositiveButton("Ναι", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                // Do nothing but close the dialog
-                try{
-                    ConnectionHelper connectionHelper = new ConnectionHelper();
-                    Connection connect = connectionHelper.conClass();
-                    if (connect != null) {
-                        String querry = "DELETE FROM [pass].[dbo].[credentials] WHERE Site = '"+site+"'";
-                        Statement statement = connect.createStatement();
-                        int resultSet = statement.executeUpdate(querry);
-                        connect.close();
-                    }
-                }catch (SQLException throwables){
-                    Log.e("ERROR",throwables.getMessage());
+        builder.setPositiveButton("Ναι", (dialog, which) -> {
+            // Do nothing but close the dialog
+            try{
+                ConnectionHelper connectionHelper = new ConnectionHelper();
+                Connection connect = connectionHelper.conClass();
+                if (connect != null) {
+                    String query = "DELETE FROM [pass].[dbo].[credentials] WHERE Site = '"+site+"'";
+                    Statement statement = connect.createStatement();
+                    int resultSet = statement.executeUpdate(query);
+                    Log.e("INFO", String.valueOf(resultSet));
+                    connect.close();
                 }
-                dialog.dismiss();
-                finish();
+            }catch (SQLException e){
+                Log.e("ERROR",e.getMessage());
             }
+            dialog.dismiss();
+            finish();
         });
 
-        builder.setNegativeButton("Όχι", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Όχι", (dialog, which) -> {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                // Do nothing
-                dialog.dismiss();
-            }
+            // Do nothing
+            dialog.dismiss();
         });
         AlertDialog alert = builder.create();
         alert.show();
@@ -120,35 +94,29 @@ public class selectedItem extends AppCompatActivity {
         builder.setIcon(android.R.drawable.ic_dialog_info);
 
 
-        builder.setPositiveButton("Ναι", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-                // Do nothing but close the dialog
-                try{
-                    ConnectionHelper connectionHelper = new ConnectionHelper();
-                    Connection connect = connectionHelper.conClass();
-                    if (connect != null) {
-                        String querry = "UPDATE [pass].[dbo].[credentials] SET Username = '"+username+"', Password = '"+password+"' WHERE Site = '"+site+"'";
-                        Statement statement = connect.createStatement();
-                        int resultSet = statement.executeUpdate(querry);
-                        connect.close();
-                    }
-                }catch (SQLException throwables){
-                    Log.e("ERROR",throwables.getMessage());
+        builder.setPositiveButton("Ναι", (dialog, which) -> {
+            // Do nothing but close the dialog
+            try{
+                ConnectionHelper connectionHelper = new ConnectionHelper();
+                Connection connect = connectionHelper.conClass();
+                if (connect != null) {
+                    String query = "UPDATE [pass].[dbo].[credentials] SET Username = '"+username+"', Password = '"+password+"' WHERE Site = '"+site+"'";
+                    Statement statement = connect.createStatement();
+                    int resultSet = statement.executeUpdate(query);
+                    Log.e("INFO",String.valueOf(resultSet));
+                    connect.close();
                 }
-                dialog.dismiss();
-                finish();
+            }catch (SQLException e){
+                Log.e("ERROR",e.getMessage());
             }
+            dialog.dismiss();
+            finish();
         });
 
-        builder.setNegativeButton("Όχι", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Όχι", (dialog, which) -> {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                // Do nothing
-                dialog.dismiss();
-            }
+            // Do nothing
+            dialog.dismiss();
         });
         AlertDialog alert = builder.create();
         alert.show();

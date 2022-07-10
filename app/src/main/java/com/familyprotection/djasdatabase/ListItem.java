@@ -1,7 +1,5 @@
 package com.familyprotection.djasdatabase;
 
-import android.content.Intent;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,26 +12,26 @@ import java.util.Map;
 public class ListItem {
 
     public List<Map<String,String>>getlist(){
-        List<Map<String,String>> data = null;
-        data = new ArrayList<Map<String,String>>();
+        List<Map<String,String>> data;
+        data = new ArrayList<>();
         try{
             ConnectionHelper connectionHelper = new ConnectionHelper();
             Connection connect = connectionHelper.conClass();
             if (connect != null) {
-                String querry = "SELECT * FROM [pass].[dbo].[credentials]";
+                String query = "SELECT * FROM [pass].[dbo].[credentials]";
                 Statement statement = connect.createStatement();
-                ResultSet resultSet = statement.executeQuery(querry);
+                ResultSet resultSet = statement.executeQuery(query);
                 while(resultSet.next()){
-                    Map<String,String> dtname = new HashMap<String,String>();
-                    dtname.put("tv_site",resultSet.getString("Site"));
-                    dtname.put("tv_username",resultSet.getString("Username"));
-                    dtname.put("tv_pass",resultSet.getString("Password"));
-                    data.add(dtname);
+                    Map<String,String> dtName = new HashMap<>();
+                    dtName.put("tv_site",resultSet.getString("Site"));
+                    dtName.put("tv_username",resultSet.getString("Username"));
+                    dtName.put("tv_pass",resultSet.getString("Password"));
+                    data.add(dtName);
                     }
                 connect.close();
             }
-        }catch (SQLException throwables){
-                throwables.printStackTrace();
+        }catch (SQLException e){
+                e.printStackTrace();
         }
         return data;
     }

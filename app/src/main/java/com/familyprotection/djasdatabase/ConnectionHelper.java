@@ -8,17 +8,15 @@ import java.sql.DriverManager;
 
 public class ConnectionHelper {
 
-
-    private Connection connection;
-    private String ipAddress = "djasserver.ddns.net:1433";
-    private String database = "pass";
     public static String username,password;
 
     public Connection conClass(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
         Connection connection = null;
-        String connectUrl = null;
+        String connectUrl;
+        String ipAddress = "djasserver.ddns.net:1433";
+        String database = "pass";
 
         try{
             Class.forName("net.sourceforge.jtds.jdbc.Driver");
