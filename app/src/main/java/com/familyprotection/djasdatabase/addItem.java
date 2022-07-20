@@ -1,5 +1,6 @@
 package com.familyprotection.djasdatabase;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -8,9 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.familyprotection.djasdatabase.Models.ConnectionHelper;
+import com.familyprotection.djasdatabase.Models.PasswordRequest;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class addItem extends AppCompatActivity {
 
@@ -19,11 +23,11 @@ public class addItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
-        Button backBtn = (Button) findViewById(R.id.btn_back);
-        Button createBtn = (Button) findViewById(R.id.btn_create);
-        EditText et_title = (EditText) findViewById(R.id.et_title);
-        EditText et_username = (EditText) findViewById(R.id.et_email);
-        EditText et_password = (EditText) findViewById(R.id.et_pass);
+        Button backBtn = findViewById(R.id.btn_back);
+        Button createBtn = findViewById(R.id.btn_create);
+        EditText et_title = findViewById(R.id.et_title);
+        EditText et_username = findViewById(R.id.et_email);
+        EditText et_password = findViewById(R.id.et_pass);
 
         backBtn.setOnClickListener(v -> finish());
 
@@ -42,26 +46,27 @@ public class addItem extends AppCompatActivity {
     }
 
     private void createData(String title,String username,String password){
-        try{
-            ConnectionHelper connectionHelper = new ConnectionHelper();
-            Connection connect = connectionHelper.conClass();
-            if (connect != null) {
-                String query = "IF NOT EXISTS ( SELECT * FROM [pass].[dbo].[credentials]\n" +
-                        "                   WHERE Site = '"+title+"')\n" +
-                        "\t\t\t\t   BEGIN\n" +
-                        "\t\t\t\t\t   INSERT INTO [pass].[dbo].[credentials] (Site, Username, Password) VALUES ('"+title+"', '"+username+"', '"+password+"')\n" +
-                        "\t\t\t\t   END\n" +
-                        "\t\t\t\t   ELSE\n" +
-                        "\t\t\t\t   THROW 51000, 'The Record Exists', 1;";
-                Statement statement = connect.createStatement();
-                int resultSet = statement.executeUpdate(query);
-                Log.e("INFO",String.valueOf(resultSet));
-                connect.close();
-                finish();
+        String token = "Bearer "+ ConnectionHelper.token;
+        PasswordRequest passwordRequest = new PasswordRequest();
+        passwordRequest.setPasswordsSite(title);
+        passwordRequest.setPasswordsUsername(username);
+        passwordRequest.setPasswordsPassword(password);
+        Call<String> passwordResponseCall = ConnectionHelper.getPasswordService().createPassword(token,passwordRequest);
+        passwordResponseCall.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+                if(response.isSuccessful()) {
+                    finish();
+                }else{
+                    runOnUiThread(() -> Toast.makeText(addItem.this, "Failed to Create Password", Toast.LENGTH_LONG).show());
+                }
             }
-        }catch (SQLException e){
-            Log.e("ERROR",e.getMessage());
-            Toast.makeText(addItem.this,"Άλλαξε το "+title+" καθώς υπάρχει ήδη.",Toast.LENGTH_LONG).show();
-        }
+
+            @Override
+            public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                Log.e("Failed to Request","An unexpected Error occurred while executing Request",t);
+                runOnUiThread(() -> Toast.makeText(addItem.this, "An Unexpected Error Occurred", Toast.LENGTH_LONG).show());
+            }
+        });
     }
 }

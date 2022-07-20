@@ -1,41 +1,31 @@
 package com.familyprotection.djasdatabase;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
+import android.util.Log;
+
+import com.familyprotection.djasdatabase.Models.ConnectionHelper;
+import com.familyprotection.djasdatabase.Models.PasswordResponse;
+
 import java.util.List;
-import java.util.Map;
 
-public class ListItem {
+import retrofit2.Call;
+import retrofit2.Response;
 
-    public List<Map<String,String>>getlist(){
-        List<Map<String,String>> data;
-        data = new ArrayList<>();
-        try{
-            ConnectionHelper connectionHelper = new ConnectionHelper();
-            Connection connect = connectionHelper.conClass();
-            if (connect != null) {
-                String query = "SELECT * FROM [pass].[dbo].[credentials]";
-                Statement statement = connect.createStatement();
-                ResultSet resultSet = statement.executeQuery(query);
-                while(resultSet.next()){
-                    Map<String,String> dtName = new HashMap<>();
-                    dtName.put("tv_site",resultSet.getString("Site"));
-                    dtName.put("tv_username",resultSet.getString("Username"));
-                    dtName.put("tv_pass",resultSet.getString("Password"));
-                    data.add(dtName);
-                    }
-                connect.close();
-            }
-        }catch (SQLException e){
-                e.printStackTrace();
+public class ListItem extends Thread {
+    public static List<PasswordResponse> data;
+    public void getlist(){
+        String token = "Bearer "+ConnectionHelper.token;
+        Call<List<PasswordResponse>> passwordResponseCall = ConnectionHelper.getPasswordService().getPasswords(token);
+        try {
+            Response<List<PasswordResponse>> response = passwordResponseCall.execute();
+            data = response.body();
+
+        }catch (Exception e){
+            Log.e("Error:","An error Occurred while executing request",e);
         }
-        return data;
     }
 
-
-
+    @Override
+    public void run() {
+        getlist();
+    }
 }

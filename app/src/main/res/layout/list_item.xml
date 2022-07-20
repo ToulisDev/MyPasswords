@@ -64,9 +64,16 @@
                         android:inputType="textPassword"
                         android:text=""
                         android:textColor="#F5F0F6" />
+
                 </LinearLayout>
 
             </LinearLayout>
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text=""
+                android:id="@+id/tv_passId"
+                />
 
         </LinearLayout>
         <ImageView
