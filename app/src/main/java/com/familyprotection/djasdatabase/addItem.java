@@ -18,6 +18,7 @@ import retrofit2.Response;
 
 public class addItem extends AppCompatActivity {
 
+    LoadingDialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,7 @@ public class addItem extends AppCompatActivity {
         EditText et_title = findViewById(R.id.et_title);
         EditText et_username = findViewById(R.id.et_email);
         EditText et_password = findViewById(R.id.et_pass);
-
+        loadingDialog = new LoadingDialog(addItem.this);
         backBtn.setOnClickListener(v -> finish());
 
         createBtn.setOnClickListener(v -> createBtnMethod(et_title,et_username,et_password));
@@ -42,10 +43,11 @@ public class addItem extends AppCompatActivity {
         if(!title.equals("") && !username.equals("") && !password.equals(""))
             createData(title,username,password);
         else
-            Toast.makeText(addItem.this,"Συμπλήρωσε όλα τα πεδία",Toast.LENGTH_LONG).show();
+            Toast.makeText(addItem.this,R.string.fill_all_fields,Toast.LENGTH_LONG).show();
     }
 
     private void createData(String title,String username,String password){
+        loadingDialog.startLoadingDialog();
         String token = "Bearer "+ ConnectionHelper.token;
         PasswordRequest passwordRequest = new PasswordRequest();
         passwordRequest.setPasswordsSite(title);
@@ -56,16 +58,19 @@ public class addItem extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if(response.isSuccessful()) {
+                    loadingDialog.dismissDialog();
                     finish();
                 }else{
-                    runOnUiThread(() -> Toast.makeText(addItem.this, "Failed to Create Password", Toast.LENGTH_LONG).show());
+                    loadingDialog.dismissDialog();
+                    runOnUiThread(() -> Toast.makeText(addItem.this, R.string.failed_to_create_pass, Toast.LENGTH_LONG).show());
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                loadingDialog.dismissDialog();
                 Log.e("Failed to Request","An unexpected Error occurred while executing Request",t);
-                runOnUiThread(() -> Toast.makeText(addItem.this, "An Unexpected Error Occurred", Toast.LENGTH_LONG).show());
+                runOnUiThread(() -> Toast.makeText(addItem.this, R.string.unexpected_error, Toast.LENGTH_LONG).show());
             }
         });
     }

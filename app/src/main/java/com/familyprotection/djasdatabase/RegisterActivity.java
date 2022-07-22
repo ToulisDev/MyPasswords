@@ -32,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText emailET,passwordET,confirmPassET;
     Button loginbtn,signupbtn;
     TextView responseMsg;
+    LoadingDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
         signupbtn = findViewById(R.id.btn_signup);
         loginbtn = findViewById(R.id.btn_login);
         responseMsg = findViewById(R.id.registerResponseMsg);
+        loadingDialog = new LoadingDialog(RegisterActivity.this);
 
         loginbtn.setOnClickListener(view -> {
             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -57,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
                 disableEditText();
                 new RegisterActivity.registerUser().returnResult();
             }else{
-                Toast.makeText(RegisterActivity.this, "Check Internet Connection",Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, R.string.check_internet,Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -159,6 +161,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
         void createUser(UserRequest userRequest){
+            loadingDialog.startLoadingDialog();
             Call<String> userResponseCall = ConnectionHelper.getUserService().registerUser(userRequest);
             userResponseCall.enqueue(new Callback<String>() {
                 @SuppressLint("SetTextI18n")
@@ -166,17 +169,20 @@ public class RegisterActivity extends AppCompatActivity {
                 public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                     if(response.isSuccessful()){
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        loadingDialog.dismissDialog();
                         startActivity(intent);
                         finish();
                     }else{
-                        wrongInput("User Already Exists!");
+                        loadingDialog.dismissDialog();
+                        wrongInput(getString(R.string.user_already_exists));
                     }
                 }
 
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                    wrongInput("An Unexpected Error Occurred!");
+                    loadingDialog.dismissDialog();
+                    wrongInput(getString(R.string.unexpected_error));
                     Log.e("Error: ","Failed Sending Request!",t);
                 }
             });

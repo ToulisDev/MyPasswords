@@ -31,6 +31,7 @@ import java.util.Map;
 public class listView extends AppCompatActivity {
 
     Dialog myDialog;
+    LoadingDialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +44,7 @@ public class listView extends AppCompatActivity {
         ListView lv = findViewById(R.id.listview);
         Button addBtn = findViewById(R.id.btn_add);
         myDialog = new Dialog(listView.this);
+        loadingDialog = new LoadingDialog(listView.this);
 
         lv.setOnItemClickListener(onListClick);
 
@@ -94,15 +96,17 @@ public class listView extends AppCompatActivity {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clip = ClipData.newPlainText("Username", username.getText().toString());
             clipboard.setPrimaryClip(clip);
-            Toast.makeText(listView.this, "Username Copied to Clipboard", Toast.LENGTH_SHORT).show();
+            Toast.makeText(listView.this, R.string.username_copy_clip, Toast.LENGTH_SHORT).show();
         });
         showPassBtn.setOnClickListener(v1234 ->{
             if(password.getText().equals(passwordAst)){
                 password.setText(et_password);
-                runOnUiThread(()->showPassBtn.setBackgroundResource(R.drawable.ripple_effect_hide_password_button));
+                password.setBackgroundResource(R.drawable.ripple_effect_hide_password_button);
             }else{
-                password.setText(passwordAst);
-                runOnUiThread(()->showPassBtn.setBackgroundResource(R.drawable.ripple_effect_show_pass_button));
+                runOnUiThread(()->{
+                    showPassBtn.setBackgroundResource(R.drawable.ripple_effect_show_pass_button);
+                    password.setText(passwordAst);
+                });
             }
         });
 
@@ -130,7 +134,7 @@ public class listView extends AppCompatActivity {
 
     SimpleAdapter ad;
     private void getData(){
-
+        loadingDialog.startLoadingDialog();
         ListView lstview = findViewById(R.id.listview);
 
         List<PasswordResponse> MyDataList;
@@ -158,6 +162,7 @@ public class listView extends AppCompatActivity {
             ad = new SimpleAdapter(listView.this, dataListToShow, R.layout.list_item, fromw, tow);
             lstview.setAdapter(ad);
         }
+        loadingDialog.dismissDialog();
     }
 
 

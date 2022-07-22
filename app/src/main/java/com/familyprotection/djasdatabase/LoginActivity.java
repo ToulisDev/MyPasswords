@@ -38,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText emaillogin,passwordlogin;
     TextView errorInput;
     Button loginbtn,signupbtn;
-
+    LoadingDialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +50,13 @@ public class LoginActivity extends AppCompatActivity {
         loginbtn = findViewById(R.id.btn_login);
         signupbtn = findViewById(R.id.btn_signup);
         errorInput = findViewById(R.id.textInput_error);
+        loadingDialog = new LoadingDialog(LoginActivity.this);
         loginbtn.setOnClickListener((view) -> {
             if(isNetworkConnected()) {
                 disableEditText();
                 new LoginActivity.checkLogin().returnResult();
             }else{
-                Toast.makeText(LoginActivity.this, "Check Internet Connection",Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, R.string.check_internet,Toast.LENGTH_LONG).show();
             }
         });
 
@@ -71,9 +72,9 @@ public class LoginActivity extends AppCompatActivity {
             String password = sp.getString("password",null);
 
             BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                    .setTitle("Biometric Login for PasswordApp")
-                    .setSubtitle("Log in using your biometric credential")
-                    .setNegativeButtonText("Use account password")
+                    .setTitle(getString(R.string.biometric_login))
+                    .setSubtitle(getString(R.string.biometric_loginMsg))
+                    .setNegativeButtonText(getString(R.string.biometric_loginCnlBox))
                     .build();
             getBiometricPrompt(username,password).authenticate(promptInfo);
         }
@@ -149,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
-                Toast.makeText(LoginActivity.this, "Authentication Failed!",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, R.string.authentication_failed,Toast.LENGTH_SHORT).show();
             }
         };
         return new BiometricPrompt(this,executor,callback);
@@ -199,6 +200,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         void loginUser(UserRequest userRequest){
+            loadingDialog.startLoadingDialog();
             Call<UserResponse> userResponseCall = ConnectionHelper.getUserService().loginUser(userRequest);
             userResponseCall.enqueue(new Callback<UserResponse>() {
                 @Override
@@ -209,16 +211,19 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, listView.class);
                         intent.putExtra("Username",emaillogin.getText().toString());
                         intent.putExtra("Password",passwordlogin.getText().toString());
+                        loadingDialog.dismissDialog();
                         startActivity(intent);
                         finish();
                     }else{
-                        wrongInput("Username or Password not found");
+                        loadingDialog.dismissDialog();
+                        wrongInput(getString(R.string.username_or_password_not_found_string));
                     }
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<UserResponse> call, @NonNull Throwable t) {
-                    wrongInput("An Unexpected Error Occurred");
+                    loadingDialog.dismissDialog();
+                    wrongInput(getString(R.string.unexpected_error));
                     Log.e("Error: ","Unexpected Error Occurred", t);
                 }
             });

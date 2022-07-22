@@ -19,7 +19,7 @@ import retrofit2.Response;
 
 public class selectedItem extends AppCompatActivity {
 
-
+    LoadingDialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +34,7 @@ public class selectedItem extends AppCompatActivity {
         TextView tvPassId = findViewById(R.id.si_passId);
         EditText et_username = findViewById(R.id.et_email);
         EditText et_password = findViewById(R.id.et_pass);
+        loadingDialog = new LoadingDialog(selectedItem.this);
 
         Button backBtn = findViewById(R.id.btn_back);
         Button deleteBtn = findViewById(R.id.btn_delete);
@@ -50,7 +51,7 @@ public class selectedItem extends AppCompatActivity {
             if(!et_username.getText().toString().equals("") && !et_password.getText().toString().equals(""))
                 editData(tvTitle.getText().toString(),et_username.getText().toString(),et_password.getText().toString(),tvPassId.getText().toString());
             else
-                Toast.makeText(selectedItem.this,"Username και Password δεν μπορούν να είναι κενά.",Toast.LENGTH_LONG).show();
+                Toast.makeText(selectedItem.this,R.string.fill_all_fields,Toast.LENGTH_LONG).show();
         });
 
         deleteBtn.setOnClickListener((view) -> deleteData(tvTitle.getText().toString(),tvPassId.getText().toString()));
@@ -61,32 +62,36 @@ public class selectedItem extends AppCompatActivity {
     private void deleteData(String site, String passId){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Επιβεβαίωση");
-        builder.setMessage("Διαγραφή των κωδικών του \""+site+"\"");
+        builder.setTitle(R.string.confirmation);
+        builder.setMessage(getString(R.string.delete_fields_from)+" \""+site+"\"");
         builder.setIcon(android.R.drawable.ic_dialog_alert);
 
-        builder.setPositiveButton("Ναι", (dialog, which) -> {
+        builder.setPositiveButton(R.string.yes, (dialog, which) -> {
+            loadingDialog.startLoadingDialog();
             String token = "Bearer "+ConnectionHelper.token;
             Call<String> passwordResponseCall = ConnectionHelper.getPasswordService().deletePassword(token,passId);
             passwordResponseCall.enqueue(new Callback<String>() {
                 @Override
                 public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                     if(response.isSuccessful()) {
+                        loadingDialog.dismissDialog();
                         finish();
                     }else{
-                        runOnUiThread(() -> Toast.makeText(selectedItem.this, "Failed to Delete Password", Toast.LENGTH_LONG).show());
+                        loadingDialog.dismissDialog();
+                        runOnUiThread(() -> Toast.makeText(selectedItem.this, R.string.failed_to_delete, Toast.LENGTH_LONG).show());
                     }
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                    loadingDialog.dismissDialog();
                     Log.e("Failed to Request","An unexpected Error occurred while executing Request",t);
-                    runOnUiThread(() -> Toast.makeText(selectedItem.this, "An Unexpected Error Occurred", Toast.LENGTH_LONG).show());
+                    runOnUiThread(() -> Toast.makeText(selectedItem.this, R.string.unexpected_error, Toast.LENGTH_LONG).show());
                 }
             });
         });
 
-        builder.setNegativeButton("Όχι", (dialog, which) -> {
+        builder.setNegativeButton(R.string.no, (dialog, which) -> {
 
             // Do nothing
             dialog.dismiss();
@@ -99,12 +104,13 @@ public class selectedItem extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setTitle("Επιβεβαίωση");
-        builder.setMessage("Ενημέρωση των κωδικών του \""+site+"\"");
+        builder.setTitle(R.string.confirmation);
+        builder.setMessage(getString(R.string.update_fields_for)+" \""+site+"\"");
         builder.setIcon(android.R.drawable.ic_dialog_info);
 
 
-        builder.setPositiveButton("Ναι", (dialog, which) -> {
+        builder.setPositiveButton(R.string.yes, (dialog, which) -> {
+            loadingDialog.startLoadingDialog();
             String token = "Bearer "+ConnectionHelper.token;
             PasswordRequest passwordRequest = new PasswordRequest();
             passwordRequest.setPasswordsSite(site);
@@ -115,21 +121,24 @@ public class selectedItem extends AppCompatActivity {
                 @Override
                 public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                     if(response.isSuccessful()) {
+                        loadingDialog.dismissDialog();
                         finish();
                     }else{
-                        runOnUiThread(() -> Toast.makeText(selectedItem.this, "Failed to Update Password", Toast.LENGTH_LONG).show());
+                        loadingDialog.dismissDialog();
+                        runOnUiThread(() -> Toast.makeText(selectedItem.this, R.string.failed_to_update, Toast.LENGTH_LONG).show());
                     }
                 }
 
                 @Override
                 public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+                    loadingDialog.dismissDialog();
                     Log.e("Failed to Request","An unexpected Error occurred while executing Request",t);
-                    runOnUiThread(() -> Toast.makeText(selectedItem.this, "An Unexpected Error Occurred", Toast.LENGTH_LONG).show());
+                    runOnUiThread(() -> Toast.makeText(selectedItem.this, R.string.unexpected_error, Toast.LENGTH_LONG).show());
                 }
             });
         });
 
-        builder.setNegativeButton("Όχι", (dialog, which) -> {
+        builder.setNegativeButton(R.string.no, (dialog, which) -> {
 
             // Do nothing
             dialog.dismiss();
