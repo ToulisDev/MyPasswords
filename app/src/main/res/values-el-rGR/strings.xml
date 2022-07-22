@@ -40,7 +40,7 @@
     <string name="check_internet">Έλεγξε τη σύνδεση στο Διαδίκτυο</string>
     <string name="biometric_login">Σύνδεση μέσω βιομετρικών παραμέτρων</string>
     <string name="biometric_loginMsg">Συνδεθείτε χρησιμοποιώντας τα βιομετρικά διαπιστευτήριά σας</string>
-    <string name="biometric_loginCnlBox">Χρησιμοποιήστε τον κωδικό πρόσβασης λογαριασμού</string>
+    <string name="biometric_loginCnlBox">Χρήση άλλου λογαριασμού</string>
     <string name="authentication_failed">Η ταυτοποίηση απέτυχε!</string>
     <string name="user_already_exists">Ο χρήστης υπάρχει ήδη!</string>
     <string name="confirmation">Επιβεβαίωση</string>

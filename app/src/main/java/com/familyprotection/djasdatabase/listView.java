@@ -100,8 +100,10 @@ public class listView extends AppCompatActivity {
         });
         showPassBtn.setOnClickListener(v1234 ->{
             if(password.getText().equals(passwordAst)){
-                password.setText(et_password);
-                password.setBackgroundResource(R.drawable.ripple_effect_hide_password_button);
+                runOnUiThread(()-> {
+                    password.setText(et_password);
+                    showPassBtn.setBackgroundResource(R.drawable.ripple_effect_hide_password_button);
+                });
             }else{
                 runOnUiThread(()->{
                     showPassBtn.setBackgroundResource(R.drawable.ripple_effect_show_pass_button);

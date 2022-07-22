@@ -10,22 +10,27 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="24dp">
+        android:gravity="center_vertical"
+        android:padding="24dp">
+
         <Button
             android:id="@+id/btn_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:background="@drawable/ripple_effect_text"
-            android:text="@string/add_password"
             android:fontFamily="@font/sfprosemibold"
-            android:textSize="17sp"/>
+            android:text="@string/add_password"
+            android:textSize="17sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_centerInParent="true"
-            android:fontFamily="@font/sfprosemibold"
+            android:layout_toEndOf="@id/btn_add"
+            android:fontFamily="@font/sfprolight"
+            android:gravity="center"
             android:text="@string/all_passwords"
             android:textColor="@color/white"
             android:textSize="17sp" />
