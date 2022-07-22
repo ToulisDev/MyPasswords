@@ -3,20 +3,49 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable-nodpi/_bg__login_screen_shape.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable-nodpi/background_shape.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable-nodpi/rectangle_1_ek1_shape.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable-nodpi/rectangle_1_shape.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable-nodpi/rectangle_2_shape.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable-nodpi/rectangle_5_shape.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable-nodpi/rectangle_6_shape.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2575" />
         <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ic_add.xml" value="0.3065" />
         <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ic_baseline_arrow_back_ios_new_24.xml" value="0.2415" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ic_outline_visibility_off_24.xml" value="0.129" />
         <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ic_password.xml" value="0.3065" />
         <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ic_person.xml" value="0.3065" />
         <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ic_right_arrow.xml" value="0.3065" />
         <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ic_title.xml" value="0.3065" />
         <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/login_button.xml" value="0.3065" />
-        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/layout/activity_add_item.xml" value="0.3138586956521739" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/rectangle_3_shape.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/rectangle_popup_window.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ripple_effect_back_button.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ripple_effect_copy_clipboard_button.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ripple_effect_delete_button.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ripple_effect_down_button.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ripple_effect_edit_button.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ripple_effect_hide_password_button.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ripple_effect_list_item.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ripple_effect_outline.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ripple_effect_raise.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ripple_effect_show_pass_button.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/drawable/ripple_effect_text.xml" value="0.2575" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/font/sfprosemibold.xml" value="0.2953125" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/font/sfprotext.xml" value="0.2953125" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/layout/activity_add_item.xml" value="0.25" />
         <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/layout/activity_list_view.xml" value="0.25" />
         <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/layout/activity_register.xml" value="0.1" />
-        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/layout/activity_selected_item.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/layout/activity_selected_item.xml" value="0.25" />
         <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/layout/list_item.xml" value="0.22" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/layout/selected_item_popup.xml" value="0.3541666666666667" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.196" />
+        <entry key="..\:/Users/Aggelos/AndroidStudioProjects/djasDatabase/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.196" />
       </map>
     </option>
   </component>
@@ -25,5 +54,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.22" />
+      </ProjectState>
+    </option>
   </component>
 </project>

@@ -3,93 +3,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundnew"
+    android:background="#121220"
     android:orientation="vertical"
     tools:context=".selectedItem">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="@drawable/ic_baseline_arrow_back_ios_new_24"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:padding="32dp"
+        android:background="@drawable/rectangle_2_shape"
+        android:layout_margin="16dp">
 
         <TextView
             android:id="@+id/tv_site"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="Title"
-            android:textColor="#F5F0F6"
+            android:layout_marginBottom="16dp"
+            android:text=""
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:textSize="30sp"/>
         <EditText
             android:id="@+id/et_email"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="16dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/rectangle_1_shape"
             android:inputType="text"
-            android:hint="Username"
+            android:hint="@string/username"
             android:text=""
-            android:textColorHint="#F5F0F6"
-            android:drawableStart="@drawable/ic_person"
-            android:drawablePadding="5dp"
-            />
+            android:textColorHint="@color/colorSecondary"
+            android:importantForAutofill="no"
+            tools:ignore="TextFields" />
         <EditText
             android:id="@+id/et_pass"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="16dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/rectangle_1_shape"
             android:inputType="text"
-            android:hint="Password"
+            android:hint="@string/password"
             android:text=""
-            android:textColorHint="#F5F0F6"
-            android:drawableStart="@drawable/ic_password"
-            android:drawablePadding="5dp"
-            />
+            android:textColorHint="@color/colorSecondary"
+            android:importantForAutofill="no" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:id="@+id/si_passId"/>
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="56dp"
             android:gravity="center"
-            android:orientation="vertical"
-            android:layout_marginBottom="150dp">
+            android:orientation="vertical" >
             <Button
                 android:id="@+id/btn_edit"
-                android:layout_width="130dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:layout_marginBottom="10dp"
-                android:text="Επεξεργασία"
+                android:text="@string/save_changes"
                 android:textColor="#fff"
-                android:background="@drawable/login_button"/>
+                android:fontFamily="@font/sfpromedium"
+                android:textSize="16sp"
+                android:background="@drawable/ripple_effect_raise"/>
             <Button
                 android:id="@+id/btn_delete"
-                android:layout_width="110dp"
+                android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:text="Διαγραφή"
-                android:textColor="#fff"
-                android:background="@drawable/login_button"/>
+                android:layout_marginVertical="16dp"
+                android:text="@string/delete"
+                android:fontFamily="@font/sfpromedium"
+                android:textSize="16sp"
+                android:textColor="@color/username_not_found_color"
+                android:background="@drawable/ripple_effect_delete_button"/>
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:text="@string/cancel"
+                android:fontFamily="@font/sfpromedium"
+                android:textSize="16sp"
+                android:textColor="@color/enigma_color"
+                android:background="@drawable/ripple_effect_outline"/>
         </LinearLayout>
 
 

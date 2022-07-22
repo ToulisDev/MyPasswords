@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F0F6"
+    android:background="@color/background_color"
     android:gravity="center"
     tools:context=".MainActivity">
 
@@ -11,7 +11,8 @@
         android:id="@+id/img"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:src="@drawable/database"/>
+        android:src="@drawable/database"
+        android:contentDescription="@string/logo" />
 
 
 </LinearLayout>

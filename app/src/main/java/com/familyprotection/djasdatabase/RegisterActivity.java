@@ -2,6 +2,7 @@ package com.familyprotection.djasdatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -9,10 +10,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -60,6 +62,68 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+
+    //Helpful Methods
+    private void resetFields(){
+        Drawable defaultField = AppCompatResources.getDrawable(RegisterActivity.this, R.drawable.rectangle_1_shape);
+        runOnUiThread(() -> {
+            responseMsg.setVisibility(View.INVISIBLE);
+            emailET.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            emailET.setBackground(defaultField);
+            passwordET.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            passwordET.setBackground(defaultField);
+            confirmPassET.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            confirmPassET.setBackground(defaultField);
+        });
+    }
+    private void wrongInput(String errorMsg){
+        resetFields();
+        Drawable errorImg = AppCompatResources.getDrawable(RegisterActivity.this, R.drawable.error_field);
+        Drawable errorField = AppCompatResources.getDrawable(RegisterActivity.this, R.drawable.rectangle_6_shape);
+        runOnUiThread(() -> {
+            responseMsg.setVisibility(View.VISIBLE);
+            responseMsg.setText(errorMsg);
+            emailET.setBackground(errorField);
+            emailET.setCompoundDrawablesWithIntrinsicBounds(null, null, errorImg, null);
+            enableEditText();
+        });
+    }
+
+    private boolean checkFields(){
+        resetFields();
+        if (!emailET.getText().toString().equals("") && !passwordET.getText().toString().equals("")){
+            if(passwordET.getText().toString().equals(confirmPassET.getText().toString())) {
+                return true;
+            }
+        }
+        Drawable errorImg = AppCompatResources.getDrawable(RegisterActivity.this, R.drawable.error_field);
+        Drawable errorField = AppCompatResources.getDrawable(RegisterActivity.this, R.drawable.rectangle_6_shape);
+        String errorMsg = getString(R.string.please_fill_the_empty_fields_string);
+        String matchErrorMsg = getString(R.string.password_does_not_match_string);
+        runOnUiThread(() -> {
+            responseMsg.setVisibility(View.VISIBLE);
+            if (emailET.getText().toString().equals("")) {
+                emailET.setBackground(errorField);
+                emailET.setCompoundDrawablesWithIntrinsicBounds(null, null, errorImg, null);
+            }
+            if (passwordET.getText().toString().equals("")) {
+                passwordET.setBackground(errorField);
+                passwordET.setCompoundDrawablesWithIntrinsicBounds(null, null, errorImg, null);
+            }
+            if (confirmPassET.getText().toString().equals("")) {
+                confirmPassET.setBackground(errorField);
+                confirmPassET.setCompoundDrawablesWithIntrinsicBounds(null, null, errorImg, null);
+            }
+            if(emailET.getText().toString().equals("") || passwordET.getText().toString().equals("") || confirmPassET.getText().toString().equals("")){
+                responseMsg.setText(errorMsg);
+            }else{
+                responseMsg.setText(matchErrorMsg);
+            }
+            enableEditText();
+        });
+        return false;
+    }
+
     private boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -67,18 +131,12 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void disableEditText() {
-        emailET.setFocusable(false);
-        passwordET.setFocusable(false);
-        confirmPassET.setFocusable(false);
         signupbtn.setFocusable(false);
         signupbtn.setClickable(false);
         loginbtn.setFocusable(false);
         loginbtn.setClickable(false);
     }
     private void enableEditText() {
-        emailET.setFocusable(true);
-        passwordET.setFocusable(true);
-        confirmPassET.setFocusable(true);
         signupbtn.setFocusable(true);
         signupbtn.setClickable(true);
         loginbtn.setFocusable(true);
@@ -90,7 +148,6 @@ public class RegisterActivity extends AppCompatActivity {
         void returnResult(){
             registerUser thread = new registerUser();
             thread.start();
-            Toast.makeText(RegisterActivity.this, "Έλεγχος Στοιχείων",Toast.LENGTH_LONG).show();
         }
 
         UserRequest createRequest(){
@@ -108,48 +165,27 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                     if(response.isSuccessful()){
-                        runOnUiThread(() -> {
-                            responseMsg.setTextColor(Color.GREEN);
-                            responseMsg.setText("Success: User Successfully Registered");
-                        });
+                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
                     }else{
-                        runOnUiThread(() -> {
-                            responseMsg.setTextColor(Color.RED);
-                            responseMsg.setText("Error: User Already Exists!");
-                        });
+                        wrongInput("User Already Exists!");
                     }
                 }
 
                 @SuppressLint("SetTextI18n")
                 @Override
                 public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
-                    runOnUiThread(() -> {
-                        responseMsg.setTextColor(Color.RED);
-                        responseMsg.setText("Error: An Unexpected Error Occurred");
-                    });
+                    wrongInput("An Unexpected Error Occurred!");
                     Log.e("Error: ","Failed Sending Request!",t);
                 }
             });
         }
 
         public void run() {
-            if(!emailET.getText().toString().equals("") && !passwordET.getText().toString().equals("")) {
-                if(passwordET.getText().toString().equals(confirmPassET.getText().toString())){
-                    createUser(createRequest());
-                    runOnUiThread(RegisterActivity.this::enableEditText);
-                }else {
-                    runOnUiThread(() ->
-                    {
-                        enableEditText();
-                        Toast.makeText(RegisterActivity.this, "Check your Password", Toast.LENGTH_LONG).show();
-                    });
-                }
-            }else {
-                runOnUiThread(() ->
-                {
-                    enableEditText();
-                    Toast.makeText(RegisterActivity.this, "Your fields are Empty!", Toast.LENGTH_LONG).show();
-                });
+            if(checkFields()) {
+                createUser(createRequest());
+                runOnUiThread(RegisterActivity.this::enableEditText);
             }
         }
 

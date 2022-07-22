@@ -5,7 +5,6 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="log_in">Log In</string>
-    <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="sign_up">Sign Up</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="prompt_email">Email</string>
@@ -17,4 +16,27 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="login_string">Login</string>
+    <string name="new_to_enigma__sign_string">New to enigma? Sign up</string>
+    <string name="username_not_found_string">Username not found</string>
+    <string name="please_fill_the_empty_fields_string">Please fill the empty Fields</string>
+    <string name="username_or_password_not_found_string">Username or Password not found</string>
+    <string name="logo">Logo</string>
+    <string name="pdatabase">PDatabase</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+    <string name="already_have_an_account_log_in">Already have an account? Log In</string>
+    <string name="password_does_not_match_string">Password does not match</string>
+    <string name="add_password">Add</string>
+    <string name="all_passwords">All Passwords</string>
+    <string name="username_list_item">Username:</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="delete">Delete</string>
+    <string name="asterisk_pass">********</string>
+    <string name="cancel">Cancel</string>
+    <string name="new_title">New Title</string>
+    <string name="save">Save</string>
+    <string name="name">Name</string>
+    <string name="site_name">Site Name</string>
+    <string name="username_of_site">Username of Site</string>
+    <string name="password_of_site">Password of Site</string>
 </resources>
