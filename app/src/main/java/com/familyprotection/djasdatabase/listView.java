@@ -16,22 +16,25 @@ import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.familyprotection.djasdatabase.Models.PasswordAdapter;
 import com.familyprotection.djasdatabase.Models.PasswordResponse;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class listView extends AppCompatActivity {
 
     Dialog myDialog;
     LoadingDialog loadingDialog;
+    ListView lstview;
+    SwipeRefreshLayout swipeRefreshLayout;
+    Button addBtn;
+    PasswordAdapter adapter;
+    List<PasswordResponse> listPasswordResponse;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,15 +42,16 @@ public class listView extends AppCompatActivity {
         String username = getIntent().getStringExtra("Username");
         String password = getIntent().getStringExtra("Password");
         saveCreds(username,password);
-
-        SwipeRefreshLayout swipeRefreshLayout = findViewById(R.id.refreshLayout);
-        ListView lv = findViewById(R.id.listview);
-        Button addBtn = findViewById(R.id.btn_add);
+        swipeRefreshLayout = findViewById(R.id.refreshLayout);
+        lstview = findViewById(R.id.listview);
+        lstview.setOnItemClickListener(onListClick);
+        listPasswordResponse = new ArrayList<>();
+        adapter = new PasswordAdapter(this, listPasswordResponse);
+        lstview.setAdapter(adapter);
+        lstview.setEmptyView(findViewById(R.id.listIsEmpty));
+        addBtn = findViewById(R.id.btn_add);
         myDialog = new Dialog(listView.this);
         loadingDialog = new LoadingDialog(listView.this);
-
-        lv.setOnItemClickListener(onListClick);
-
         swipeRefreshLayout.setOnRefreshListener(() -> {
             getData();
             swipeRefreshLayout.setRefreshing(false);
@@ -134,11 +138,8 @@ public class listView extends AppCompatActivity {
     }
 
 
-    SimpleAdapter ad;
     private void getData(){
         loadingDialog.startLoadingDialog();
-        ListView lstview = findViewById(R.id.listview);
-
         List<PasswordResponse> MyDataList;
         ListItem thread = new ListItem();
         thread.start();
@@ -149,20 +150,10 @@ public class listView extends AppCompatActivity {
         }
         if(ListItem.data != null) {
             MyDataList = ListItem.data;
-            List<Map<String, String>> dataListToShow;
-            dataListToShow = new ArrayList<>();
-            for (int i = 0; i < MyDataList.size(); i++) {
-                Map<String, String> tempPassword = new HashMap<>();
-                tempPassword.put("tv_site", MyDataList.get(i).getPasswordsSite());
-                tempPassword.put("tv_username", MyDataList.get(i).getPasswordsUsername());
-                tempPassword.put("tv_pass", MyDataList.get(i).getPasswordsPassword());
-                tempPassword.put("tv_passId", MyDataList.get(i).getPasswordsId());
-                dataListToShow.add(tempPassword);
-            }
-            String[] fromw = {"tv_site", "tv_username", "tv_pass", "tv_passId"};
-            int[] tow = {R.id.tv_site, R.id.tv_username, R.id.tv_pass, R.id.tv_passId};
-            ad = new SimpleAdapter(listView.this, dataListToShow, R.layout.list_item, fromw, tow);
-            lstview.setAdapter(ad);
+            adapter.clear();
+            adapter.addAll(MyDataList);
+        }else{
+            adapter.clear();
         }
         loadingDialog.dismissDialog();
     }

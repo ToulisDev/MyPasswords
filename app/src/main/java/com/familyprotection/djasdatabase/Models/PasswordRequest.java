@@ -1,10 +1,19 @@
 package com.familyprotection.djasdatabase.Models;
 
+
 public class PasswordRequest {
 
     private String passwordsSite;
     private String passwordsUsername;
     private String passwordsPassword;
+
+    public PasswordRequest(){}
+    @SuppressWarnings("unused")
+    public PasswordRequest(String passwordsSite, String passwordsUsername, String passwordsPassword){
+        this.passwordsSite = passwordsSite;
+        this.passwordsUsername = passwordsUsername;
+        this.passwordsPassword = passwordsPassword;
+    }
 
     @SuppressWarnings("unused")
     public String getPasswordsSite() {

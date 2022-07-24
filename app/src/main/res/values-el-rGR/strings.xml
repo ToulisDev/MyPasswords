@@ -51,4 +51,6 @@
     <string name="update_fields_for">Ενημέρωση κωδικών πρόσβασης για</string>
     <string name="failed_to_update">Η ενημέρωση του κωδικού πρόσβασης απέτυχε</string>
     <string name="username_copy_clip">Όνομα χρήστη αντιγράφηκε στο Πρόχειρο</string>
+    <string name="no_passwords_found">Δεν βρέθηκαν κωδικοί πρόσβασης</string>
+    <string name="logo_image">Εικόνα λογοτύπου</string>
 </resources>

@@ -41,4 +41,22 @@ public class ConnectionHelper {
         return getRetrofit().create(PasswordService.class);
     }
 
+    private static Retrofit getGoogleRetrofit(){
+        Gson gson = new GsonBuilder()
+                .setLenient()
+                .create();
+
+        HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
+        httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().addInterceptor(httpLoggingInterceptor).build();
+
+        return new Retrofit.Builder()
+                .baseUrl("https://www.google.gr/search")
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(okHttpClient)
+                .build();
+    }
+
 }
