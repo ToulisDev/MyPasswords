@@ -6,6 +6,7 @@
     android:layout_margin="8dp"
     app:cardCornerRadius="10dp">
     <LinearLayout
+        android:id="@+id/imgItemSelection"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"

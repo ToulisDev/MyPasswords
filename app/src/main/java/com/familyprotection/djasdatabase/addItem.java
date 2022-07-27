@@ -2,11 +2,11 @@ package com.familyprotection.djasdatabase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,6 +19,7 @@ import com.familyprotection.djasdatabase.Models.ConnectionHelper;
 import com.familyprotection.djasdatabase.Models.PasswordRequest;
 import com.familyprotection.djasdatabase.Models.googleRequest;
 
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -31,28 +32,30 @@ public class addItem extends AppCompatActivity {
     RecyclerView imgList;
     ArrayList<Bitmap> bitmapList = new ArrayList<>();
     BitmapAdapter adapter;
+    Bitmap selectedLogo;
+    EditText et_title;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
         Button backBtn = findViewById(R.id.btn_back);
         Button createBtn = findViewById(R.id.btn_create);
-        EditText et_title = findViewById(R.id.et_title);
+        et_title = findViewById(R.id.et_title);
         EditText et_username = findViewById(R.id.et_email);
         EditText et_password = findViewById(R.id.et_pass);
+        EditText et_website = findViewById(R.id.et_website);
 
         imgList = findViewById(R.id.imgList);
-        adapter = new BitmapAdapter(bitmapList);
+        adapter = new BitmapAdapter(bitmapList, this::onListClick);
         LinearLayoutManager bLinearLayoutManager = new LinearLayoutManager(getApplicationContext());
         bLinearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         imgList.setLayoutManager(bLinearLayoutManager);
-        imgList.setItemAnimator(new DefaultItemAnimator());
         imgList.setAdapter(adapter);
         loadingDialog = new LoadingDialog(addItem.this);
 
         backBtn.setOnClickListener(v -> finish());
 
-        createBtn.setOnClickListener(v -> createBtnMethod(et_title,et_username,et_password));
+        createBtn.setOnClickListener(v -> createBtnMethod(et_title,et_username,et_password,et_website));
         et_title.setOnFocusChangeListener((v, hasFocus) -> {
             if(!hasFocus){
                 getImageLogo(et_title.getText().toString());
@@ -67,6 +70,7 @@ public class addItem extends AppCompatActivity {
             if(images != null) {
                 bitmapList.clear();
                 bitmapList.addAll(images);
+                selectedLogo = bitmapList.get(0);
             }else {
                 bitmapList.clear();
             }
@@ -77,29 +81,34 @@ public class addItem extends AppCompatActivity {
 
     }
 
-    private void createBtnMethod(EditText et_title, EditText et_username, EditText et_password){
+    private void createBtnMethod(EditText et_title, EditText et_username, EditText et_password, EditText et_website){
         String title = et_title.getText().toString();
         String username = et_username.getText().toString();
         String password = et_password.getText().toString();
+        String website = et_website.getText().toString();
+        if(website.equals(""))
+            website = "www."+title+".com";
         if(!title.equals("") && !username.equals("") && !password.equals(""))
-            createData(title,username,password);
+            createData(title,username,password,website);
         else
             Toast.makeText(addItem.this,R.string.fill_all_fields,Toast.LENGTH_LONG).show();
     }
 
-    private void createData(String title,String username,String password){
+    private void createData(String title,String username,String password, String website){
         loadingDialog.startLoadingDialog();
         String token = "Bearer "+ ConnectionHelper.token;
         PasswordRequest passwordRequest = new PasswordRequest();
         passwordRequest.setPasswordsSite(title);
         passwordRequest.setPasswordsUsername(username);
         passwordRequest.setPasswordsPassword(password);
+        passwordRequest.setPasswordsWebsite(website);
         Call<String> passwordResponseCall = ConnectionHelper.getPasswordService().createPassword(token,passwordRequest);
         passwordResponseCall.enqueue(new Callback<String>() {
             @Override
             public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
                 if(response.isSuccessful()) {
                     loadingDialog.dismissDialog();
+                    createFile();
                     finish();
                 }else{
                     loadingDialog.dismissDialog();
@@ -115,4 +124,29 @@ public class addItem extends AppCompatActivity {
             }
         });
     }
+
+    private void onListClick(Bitmap image, int position){
+        if(adapter.previous_position == -1){
+            adapter.previous_position = position;
+        }else{
+            adapter.previous_position = adapter.selected_position;
+        }
+        adapter.selected_position = position;
+        selectedLogo = image;
+        adapter.notifyItemChanged(adapter.previous_position);
+        adapter.notifyItemChanged(adapter.selected_position);
+    }
+
+    private void createFile(){
+        String filename = "___"+et_title.getText().toString();
+        try {
+            FileOutputStream fileOutputStream = getApplicationContext().openFileOutput(filename, Context.MODE_PRIVATE);
+            selectedLogo.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+            fileOutputStream.close();
+            Log.i("SUCCESSFUL","FILE SUCCESSFULLY CREATED");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

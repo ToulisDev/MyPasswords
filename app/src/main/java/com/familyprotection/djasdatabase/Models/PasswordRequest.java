@@ -6,13 +6,23 @@ public class PasswordRequest {
     private String passwordsSite;
     private String passwordsUsername;
     private String passwordsPassword;
+    private String passwordsWebsite;
 
     public PasswordRequest(){}
     @SuppressWarnings("unused")
-    public PasswordRequest(String passwordsSite, String passwordsUsername, String passwordsPassword){
+    public PasswordRequest(String passwordsSite, String passwordsUsername, String passwordsPassword, String passwordsWebsite){
         this.passwordsSite = passwordsSite;
         this.passwordsUsername = passwordsUsername;
         this.passwordsPassword = passwordsPassword;
+        this.passwordsWebsite = passwordsWebsite;
+    }
+    @SuppressWarnings("unused")
+    public String getPasswordsWebsite() {
+        return passwordsWebsite;
+    }
+    @SuppressWarnings("unused")
+    public void setPasswordsWebsite(String passwordsWebsite) {
+        this.passwordsWebsite = passwordsWebsite;
     }
 
     @SuppressWarnings("unused")

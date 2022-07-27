@@ -59,4 +59,7 @@
     <string name="username_copy_clip">Username Copied to Clipboard</string>
     <string name="no_passwords_found">No Passwords Found</string>
     <string name="logo_image">Logo Image</string>
+    <string name="website_url">Website URL</string>
+    <string name="website">Website</string>
+    <string name="created_on">Created On</string>
 </resources>

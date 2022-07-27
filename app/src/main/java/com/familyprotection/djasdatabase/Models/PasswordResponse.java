@@ -13,6 +13,27 @@ public class PasswordResponse {
     private String passwordsPassword;
     @SerializedName("userId")
     private String userId;
+    @SerializedName("passwordsWebsite")
+    private String passwordsWebsite;
+    @SerializedName("passwordsInsertDate")
+    private String passwordsInsertDate;
+
+    @SuppressWarnings("unused")
+    public String getPasswordsWebsite() {
+        return passwordsWebsite;
+    }
+    @SuppressWarnings("unused")
+    public void setPasswordsWebsite(String passwordsWebsite) {
+        this.passwordsWebsite = passwordsWebsite;
+    }
+    @SuppressWarnings("unused")
+    public String getPasswordsInsertDate() {
+        return passwordsInsertDate;
+    }
+    @SuppressWarnings("unused")
+    public void setPasswordsInsertDate(String passwordsInsertDate) {
+        this.passwordsInsertDate = passwordsInsertDate;
+    }
 
     public String getPasswordsId() {
         return passwordsId;
@@ -31,7 +52,7 @@ public class PasswordResponse {
     public void setPasswordsSite(String passwordsSite) {
         this.passwordsSite = passwordsSite;
     }
-
+    @SuppressWarnings("unused")
     public String getPasswordsUsername() {
         return passwordsUsername;
     }

@@ -10,27 +10,84 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
         android:orientation="vertical"
-        android:padding="32dp"
         android:background="@drawable/rectangle_2_shape"
         android:layout_margin="16dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/rectangle_3_shape"
+            android:layout_marginBottom="24dp"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/pass_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:contentDescription="@string/logo"/>
+        </LinearLayout>
+
         <TextView
-            android:id="@+id/tv_site"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="@string/name"
+            android:textColor="@color/colorSecondary"
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/tv_site"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/rectangle_1_shape"
+            android:inputType="text"
+            android:hint="@string/site_name"
             android:text=""
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:textSize="30sp"/>
+            android:textColorHint="@color/colorSecondary"
+            android:importantForAutofill="no"
+            tools:ignore="TextFields" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="@string/website"
+            android:textColor="@color/colorSecondary"
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/et_website"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:paddingHorizontal="16dp"
+            android:background="@drawable/rectangle_1_shape"
+            android:inputType="text"
+            android:hint="@string/website_url"
+            android:text=""
+            android:textColorHint="@color/colorSecondary"
+            android:importantForAutofill="no"
+            tools:ignore="TextFields" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="@string/username"
+            android:textColor="@color/colorSecondary"
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"/>
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="16dp"
             android:paddingHorizontal="16dp"
             android:background="@drawable/rectangle_1_shape"
             android:inputType="text"
@@ -39,11 +96,21 @@
             android:textColorHint="@color/colorSecondary"
             android:importantForAutofill="no"
             tools:ignore="TextFields" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:layout_marginHorizontal="16dp"
+            android:text="@string/password"
+            android:textColor="@color/colorSecondary"
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"/>
         <EditText
             android:id="@+id/et_pass"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="16dp"
             android:paddingHorizontal="16dp"
             android:background="@drawable/rectangle_1_shape"
             android:inputType="text"
@@ -67,6 +134,7 @@
                 android:id="@+id/btn_edit"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginHorizontal="16dp"
                 android:text="@string/save_changes"
                 android:textColor="#fff"
                 android:fontFamily="@font/sfpromedium"
@@ -77,6 +145,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginVertical="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:text="@string/delete"
                 android:fontFamily="@font/sfpromedium"
                 android:textSize="16sp"
@@ -86,6 +155,7 @@
                 android:id="@+id/btn_back"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_marginHorizontal="16dp"
                 android:text="@string/cancel"
                 android:fontFamily="@font/sfpromedium"
                 android:textSize="16sp"

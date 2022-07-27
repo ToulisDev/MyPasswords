@@ -1,6 +1,7 @@
 package com.familyprotection.djasdatabase;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.Dialog;
@@ -9,12 +10,15 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +27,9 @@ import com.familyprotection.djasdatabase.Models.PasswordAdapter;
 import com.familyprotection.djasdatabase.Models.PasswordResponse;
 
 
+import org.jetbrains.annotations.Nullable;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,7 +78,7 @@ public class listView extends AppCompatActivity {
         getData();
     }
 
-    private void showPopup(String tv_site, String et_username, String et_password, String tv_passId){
+    private void showPopup(String tv_site, String et_username, String et_password, String tv_passId, String et_website, String tv_insertDate){
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.setContentView(R.layout.selected_item_popup);
         Button backBtn = myDialog.findViewById(R.id.popup_back);
@@ -81,11 +88,17 @@ public class listView extends AppCompatActivity {
         TextView title = myDialog.findViewById(R.id.popup_title);
         TextView username = myDialog.findViewById(R.id.popup_username);
         TextView password = myDialog.findViewById(R.id.popup_password);
+        TextView website = myDialog.findViewById(R.id.popup_website);
+        TextView insertDate = myDialog.findViewById(R.id.popup_date);
+        ImageView logo = myDialog.findViewById(R.id.popup_logo);
         String passwordAst = getString(R.string.asterisk_pass);
         TextView id = myDialog.findViewById(R.id.popup_id);
         title.setText(tv_site);
         username.setText(et_username);
         id.setText(tv_passId);
+        website.setText(et_website);
+        insertDate.setText(tv_insertDate);
+        setLogo(logo,tv_site);
         backBtn.setOnClickListener(v1 -> myDialog.dismiss());
         editBtn.setOnClickListener(v12 -> {
             myDialog.dismiss();
@@ -94,6 +107,7 @@ public class listView extends AppCompatActivity {
             intent.putExtra("Username",et_username);
             intent.putExtra("Password",et_password);
             intent.putExtra("PassId",tv_passId);
+            intent.putExtra("Website",et_website);
             startActivity(intent);
         });
         copyBtn.setOnClickListener(v123 ->{
@@ -124,7 +138,9 @@ public class listView extends AppCompatActivity {
             String et_username = ((TextView) view.findViewById(R.id.tv_username)).getText().toString();
             String et_password = ((TextView) view.findViewById(R.id.tv_pass)).getText().toString();
             String tv_passId = ((TextView) view.findViewById(R.id.tv_passId)).getText().toString();
-            showPopup(tv_site,et_username,et_password,tv_passId);
+            String et_website = ((TextView) view.findViewById(R.id.tv_website)).getText().toString();
+            String tv_insertDate = ((TextView) view.findViewById(R.id.tv_insertDate)).getText().toString();
+            showPopup(tv_site,et_username,et_password,tv_passId,et_website,tv_insertDate);
     };
 
     private void saveCreds(String username, String password){
@@ -136,6 +152,7 @@ public class listView extends AppCompatActivity {
             editor.apply();
         }
     }
+
 
 
     private void getData(){
@@ -158,6 +175,24 @@ public class listView extends AppCompatActivity {
         loadingDialog.dismissDialog();
     }
 
+    void setLogo(ImageView logo, String Site){
+        String logoName = "___" + Site;
+        File file = getAppSpecificFile(this, logoName);
+        if (file != null) {
+            if(file.exists()) {
+                String path = file.getPath();
+                Bitmap bitmap = BitmapFactory.decodeFile(path);
+                logo.setImageBitmap(bitmap);
+            }else
+                logo.setBackground(AppCompatResources.getDrawable(this, R.drawable.default_logo));
+        }else{
+            logo.setBackground(AppCompatResources.getDrawable(this, R.drawable.default_logo));
+        }
+    }
 
+    @Nullable
+    File getAppSpecificFile(Context context, String filename) {
+        return new File(context.getFilesDir(), filename);
+    }
 
 }

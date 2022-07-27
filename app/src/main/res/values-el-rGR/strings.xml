@@ -53,4 +53,7 @@
     <string name="username_copy_clip">Όνομα χρήστη αντιγράφηκε στο Πρόχειρο</string>
     <string name="no_passwords_found">Δεν βρέθηκαν κωδικοί πρόσβασης</string>
     <string name="logo_image">Εικόνα λογοτύπου</string>
+    <string name="website_url">URL Ιστότοπου</string>
+    <string name="website">Ιστότοπος</string>
+    <string name="created_on">Δημιουργήθηκε στις</string>
 </resources>
