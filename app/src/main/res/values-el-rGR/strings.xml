@@ -56,4 +56,5 @@
     <string name="website_url">URL Ιστότοπου</string>
     <string name="website">Ιστότοπος</string>
     <string name="created_on">Δημιουργήθηκε στις</string>
+    <string name="change_logo">Άλλαξε Λογότυπο</string>
 </resources>

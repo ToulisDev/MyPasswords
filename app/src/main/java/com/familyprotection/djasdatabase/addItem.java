@@ -71,14 +71,14 @@ public class addItem extends AppCompatActivity {
                 bitmapList.clear();
                 bitmapList.addAll(images);
                 selectedLogo = bitmapList.get(0);
+                adapter.previous_position = 0;
+                adapter.selected_position = 0;
             }else {
                 bitmapList.clear();
             }
             adapter.notifyDataSetChanged();
         });
         googleList.start();
-
-
     }
 
     private void createBtnMethod(EditText et_title, EditText et_username, EditText et_password, EditText et_website){

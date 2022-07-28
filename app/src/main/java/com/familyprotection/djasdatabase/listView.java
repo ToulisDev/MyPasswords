@@ -165,6 +165,11 @@ public class listView extends AppCompatActivity {
         } catch (InterruptedException e) {
             Log.e("Interrupted Error","Thread Was Interrupted unexpectedly",e);
         }
+        if(!thread.getAuthorized()){
+            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
         if(ListItem.data != null) {
             MyDataList = ListItem.data;
             adapter.clear();

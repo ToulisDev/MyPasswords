@@ -19,7 +19,7 @@ import java.util.List;
 public class BitmapAdapter extends RecyclerView.Adapter<BitmapAdapter.MyViewHolder> {
     private final List<Bitmap> imgList;
     private final ItemClickListener itemClickListener;
-    public int selected_position = 0;
+    public int selected_position = -1;
     public int previous_position = -1;
     static class MyViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
