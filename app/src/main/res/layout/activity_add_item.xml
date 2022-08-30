@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_shape"
+    android:orientation="vertical"
+    tools:context=".addItem">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/ripple_effect_back_button"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@id/btn_back"
+            android:layout_toStartOf="@id/btn_create"
+            android:gravity="center"
+            android:id="@+id/popup_title"
+            android:text="@string/new_title"
+            android:textColor="@color/white"
+            android:fontFamily="@font/sfprosemibold"
+            android:textSize="18sp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:text="@string/save"
+            android:textSize="16sp"
+            android:fontFamily="@font/sfprosemibold"
+            android:id="@+id/btn_create"
+            android:background="@drawable/ripple_effect_text"/>
+
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/rectangle_2_color" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/name"
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rectangle_1_shape"
+            android:inputType="text"
+            android:hint="@string/site_name"
+            android:paddingStart="16dp"
+            android:paddingEnd="12dp"
+            android:text=""
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"
+            android:textColorHint="@color/white"
+            android:importantForAutofill="no" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/website"
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"/>
+
+        <EditText
+            android:id="@+id/et_website"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rectangle_1_shape"
+            android:inputType="text"
+            android:hint="@string/website_url"
+            android:paddingStart="16dp"
+            android:paddingEnd="12dp"
+            android:text=""
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"
+            android:textColorHint="@color/white"
+            android:importantForAutofill="no" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/username"
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rectangle_1_shape"
+            android:inputType="text"
+            android:hint="@string/username_of_site"
+            android:text=""
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"
+            android:textColorHint="@color/white"
+            android:paddingStart="16dp"
+            android:paddingEnd="12dp"
+            android:importantForAutofill="no"
+            tools:ignore="TextFields" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="@string/password"
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"/>
+        <EditText
+            android:id="@+id/et_pass"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/rectangle_1_shape"
+            android:inputType="text"
+            android:hint="@string/password_of_site"
+            android:text=""
+            android:fontFamily="@font/sfprolight"
+            android:textSize="16sp"
+            android:textColorHint="@color/white"
+            android:paddingStart="16dp"
+            android:paddingEnd="12dp"
+            android:importantForAutofill="no" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/logo_image"
+                android:fontFamily="@font/sfprolight"
+                android:textSize="16sp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/imgList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

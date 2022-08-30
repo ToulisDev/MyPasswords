@@ -1,0 +1,66 @@
+<resources>
+    <string name="app_name" translatable="false">djasDatabase</string>
+    <string name="usernameTV">Username:</string>
+    <string name="login">Login</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="title_activity_register" translatable="false">RegisterActivity</string>
+    <string name="prompt_email" translatable="false">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username" translatable="false">Not a valid username</string>
+    <string name="invalid_password" translatable="false">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login_string">Login</string>
+    <string name="new_to_enigma__sign_string">New to enigma? Sign up</string>
+    <string name="username_not_found_string">Username not found</string>
+    <string name="please_fill_the_empty_fields_string">Please fill the empty Fields</string>
+    <string name="username_or_password_not_found_string">Username or Password not found</string>
+    <string name="logo">Logo</string>
+    <string name="pdatabase" translatable="false">PDatabase</string>
+    <string name="don_t_have_an_account_sign_up">Don\'t have an account? Sign Up</string>
+    <string name="already_have_an_account_log_in">Already have an account? Log In</string>
+    <string name="password_does_not_match_string">Password does not match</string>
+    <string name="add_password">Add</string>
+    <string name="all_passwords">All Passwords</string>
+    <string name="username_list_item">Username:</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="delete">Delete</string>
+    <string name="asterisk_pass" translatable="false">********</string>
+    <string name="cancel">Cancel</string>
+    <string name="new_title">New Title</string>
+    <string name="save">Save</string>
+    <string name="name">Name</string>
+    <string name="site_name">Site Name</string>
+    <string name="username_of_site">Username of Site</string>
+    <string name="password_of_site">Password of Site</string>
+    <string name="loading">Loading…</string>
+    <string name="unexpected_error">An Unexpected Error Occurred</string>
+    <string name="failed_to_create_pass">Failed to Create Password</string>
+    <string name="fill_all_fields">Fill all the fields</string>
+    <string name="check_internet">Check Internet Connection</string>
+    <string name="biometric_login">Biometric Login for PasswordApp</string>
+    <string name="biometric_loginMsg">Log in using your biometric credential</string>
+    <string name="biometric_loginCnlBox">Use account password</string>
+    <string name="authentication_failed">Authentication Failed!</string>
+    <string name="user_already_exists">User Already Exists!</string>
+    <string name="confirmation">Confirmation</string>
+    <string name="delete_fields_from">Delete passwords for</string>
+    <string name="failed_to_delete">Failed to Delete Password</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="update_fields_for">Update passwords for</string>
+    <string name="failed_to_update">Failed to Update Password</string>
+    <string name="username_copy_clip">Username Copied to Clipboard</string>
+    <string name="no_passwords_found">No Passwords Found</string>
+    <string name="logo_image">Logo Image</string>
+    <string name="website_url">Website URL</string>
+    <string name="website">Website</string>
+    <string name="created_on">Created On</string>
+    <string name="change_logo">Change Logo</string>
+</resources>
