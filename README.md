@@ -1,6 +1,13 @@
 # Password Manager Android Application
 <a name="readme-top"></a>
 
+<!-- PROJECT SHIELDS -->
+<!--
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Issues][issues-shield]][issues-url]
+[![APACHE 2.0 License][license-shield]][license-url]
+
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
@@ -130,6 +137,8 @@ Project Link: [https://github.com/ToulisDev/MyPasswords](https://github.com/Toul
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [issues-shield]: https://img.shields.io/github/issues/ToulisDev/MyPasswords?style=for-the-badge
 [issues-url]: https://github.com/ToulisDev/MyPasswords/issues
+[license-shield]: https://img.shields.io/github/license/ToulisDev/MyPasswords?style=for-the-badge
+[license-url]: https://github.com/ToulisDev/MyPasswords/blob/main/LICENSE.md
 [product-register]: images/screenshot-register.png
 [product-main]: images/screenshot-main.png
 [product-add]: images/screenshot-add.png
