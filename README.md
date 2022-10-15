@@ -138,7 +138,7 @@ Project Link: [https://github.com/ToulisDev/MyPasswords](https://github.com/Toul
 [issues-shield]: https://img.shields.io/github/issues/ToulisDev/MyPasswords?style=for-the-badge
 [issues-url]: https://github.com/ToulisDev/MyPasswords/issues
 [license-shield]: https://img.shields.io/github/license/ToulisDev/MyPasswords?style=for-the-badge
-[license-url]: https://github.com/ToulisDev/MyPasswords/blob/main/LICENSE.md
+[license-url]: https://github.com/ToulisDev/MyPasswords/blob/main/LICENSE
 [product-register]: images/screenshot-register.png
 [product-main]: images/screenshot-main.png
 [product-add]: images/screenshot-add.png
